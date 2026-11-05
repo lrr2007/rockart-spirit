@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户调查 - 岩画之灵</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="logo-icon">🏔️</span>
+                <span class="logo-text">岩画之灵</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/gallery">岩画图谱</a>
+            <a href="/ai">AI解读</a>
+            <a href="/quiz">知识测试</a>
+            <a href="/survey">用户调查</a>
+            <a href="/style">风格迁移</a>
+        </div>
+    </nav>
+
+    <section class="survey-section">
+        <div class="survey-header">
+            <h1>📋 用户调查</h1>
+            <p>花 1 分钟完成调查，我们将为您推荐更个性化的内容</p>
+        </div>
+
+        <form id="survey-form" class="survey-form">
+            <!-- 问题1: 年龄段 -->
+            <div class="survey-question">
+                <h3>1. 您的年龄段是？</h3>
+                <div class="survey-options">
+                    <label class="survey-option">
+                        <input type="radio" name="age" value="under18" required>
+                        <span>18 岁以下</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="age" value="18-25">
+                        <span>18-25 岁</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="age" value="26-35">
+                        <span>26-35 岁</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="age" value="36-50">
+                        <span>36-50 岁</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="age" value="over50">
+                        <span>50 岁以上</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 问题2: 职业 -->
+            <div class="survey-question">
+                <h3>2. 您的职业是？</h3>
+                <div class="survey-options">
+                    <label class="survey-option">
+                        <input type="radio" name="occupation" value="student" required>
+                        <span>学生</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="occupation" value="teacher">
+                        <span>教师/教育工作者</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="occupation" value="researcher">
+                        <span>研究人员/学者</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="occupation" value="tourism">
+                        <span>旅游从业者</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="occupation" value="art">
+                        <span>艺术/文化工作者</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="occupation" value="other">
+                        <span>其他</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 问题3: 对岩画的了解程度 -->
+            <div class="survey-question">
+                <h3>3. 您对贺兰山岩画的了解程度？</h3>
+                <div class="survey-options">
+                    <label class="survey-option">
+                        <input type="radio" name="knowledge" value="beginner" required>
+                        <span>完全不了解</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="knowledge" value="basic">
+                        <span>听说过，但不了解</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="knowledge" value="intermediate">
+                        <span>有一定了解</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="knowledge" value="expert">
+                        <span>非常了解</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 问题4: 喜欢的展示方式 -->
+            <div class="survey-question">
+                <h3>3. 您更喜欢哪种展示方式？</h3>
+                <div class="survey-options">
+                    <label class="survey-option">
+                        <input type="radio" name="display" value="visual" required>
+                        <span>图片展示为主</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="display" value="story">
+                        <span>故事化讲解</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="display" value="interactive">
+                        <span>互动体验</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="radio" name="display" value="academic">
+                        <span>学术深度解读</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 问题5: 感兴趣的功能 -->
+            <div class="survey-question">
+                <h3>4. 您最感兴趣的功能是？（可多选）</h3>
+                <div class="survey-options">
+                    <label class="survey-option checkbox">
+                        <input type="checkbox" name="features" value="ai_interpret">
+                        <span>🤖 AI 岩画解读</span>
+                    </label>
+                    <label class="survey-option checkbox">
+                        <input type="checkbox" name="features" value="style_transfer">
+                        <span>🎨 风格迁移创作</span>
+                    </label>
+                    <label class="survey-option">
+                        <input type="checkbox" name="features" value="quiz">
+                        <span>📝 知识测试</span>
+                    </label>
+                    <label class="survey-option checkbox">
+                        <input type="checkbox" name="features" value="game">
+                        <span>🎮 互动游戏</span>
+                    </label>
+                    <label class="survey-option checkbox">
+                        <input type="checkbox" name="features" value="community">
+                        <span>👥 社区交流</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 问题6: 建议 -->
+            <div class="survey-question">
+                <h3>5. 您对岩画之灵有什么建议？（选填）</h3>
+                <textarea name="suggestion" rows="3" placeholder="写下您的建议..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">
+                提交调查
+            </button>
+        </form>
+
+        <div class="survey-result" id="survey-result" style="display:none;">
+            <h2>🎉 感谢您的反馈！</h2>
+            <p id="survey-message"></p>
+            <div class="recommendations" id="recommendations"></div>
+            <a href="/" class="btn btn-primary">返回首页</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/survey-script.js"></script>
+</body>
+</html>

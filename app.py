@@ -220,5 +220,109 @@ def stats():
         'daily': get_daily_rockart()['name']
     })
 
+
+# 用户调查页面
+@app.route('/survey')
+def survey():
+    return render_template('survey.html')
+
+# 提交调查
+@app.route('/api/submit-survey', methods=['POST'])
+def submit_survey():
+    data = request.json
+    
+    # 构建用户画像
+    profile = {
+        'age': data.get('age', ''),
+        'occupation': data.get('occupation', ''),
+        'knowledge': data.get('knowledge', ''),
+        'display': data.get('display', ''),
+        'features': data.get('features', []),
+        'suggestion': data.get('suggestion', ''),
+        'timestamp': datetime.now().isoformat()
+    }
+    
+    # 保存到调查文件
+    import os
+    import json
+    
+    survey_file = 'survey_results.json'
+    results = []
+    
+    if os.path.exists(survey_file):
+        with open(survey_file, 'r', encoding='utf-8') as f:
+            results = json.load(f)
+    
+    results.append(profile)
+    
+    with open(survey_file, 'w', encoding='utf-8') as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+    
+    # 根据画像生成推荐
+    recommendations = generate_recommendations(profile)
+    
+    return jsonify({
+        'success': True,
+        'message': '感谢您的反馈！我们将根据您的偏好优化网站内容。',
+        'recommendations': recommendations
+    })
+
+def generate_recommendations(profile):
+    """根据用户画像生成个性化推荐"""
+    recs = []
+    
+    # 根据职业推荐
+    occ = profile.get('occupation', '')
+    if occ == 'student':
+        recs.append('📚 推荐您尝试「知识测试」功能，检验学习成果')
+        recs.append('🎓 我们准备了适合学生的岩画科普内容')
+    elif occ == 'teacher':
+        recs.append('🏫 推荐您查看「岩画图谱」，可用于教学素材')
+        recs.append('📝 知识测试功能可用于课堂互动')
+    elif occ == 'researcher':
+        recs.append('🔬 推荐您使用「AI 深度解读」功能')
+        recs.append('📖 我们整理了详细的岩画学术资料')
+    elif occ == 'tourism':
+        recs.append('🗺️ 推荐您查看贺兰山岩画景区导览信息')
+        recs.append('📸 风格迁移功能可用于旅游宣传素材')
+    elif occ == 'art':
+        recs.append('🎨 推荐您尝试「风格迁移」功能')
+        recs.append('🖼️ 岩画图案可用于艺术创作参考')
+    
+    # 根据知识水平推荐
+    knowledge = profile.get('knowledge', '')
+    if knowledge == 'beginner':
+        recs.append('🌟 建议从「每日一画」开始了解岩画')
+        recs.append('📖 推荐阅读首页的岩画背景介绍')
+    elif knowledge == 'basic':
+        recs.append('📝 「知识测试」可以帮助您系统学习')
+    elif knowledge == 'expert':
+        recs.append('🔍 「AI 解读」功能可深入分析岩画细节')
+    
+    # 根据展示偏好推荐
+    display = profile.get('display', '')
+    if display == 'story':
+        recs.append('📖 我们为每幅岩画准备了生动的故事化解读')
+    elif display == 'interactive':
+        recs.append('🎮 推荐您尝试「风格迁移」和「知识测试」')
+    elif display == 'academic':
+        recs.append('📚 详情页包含学术引用和古籍互证')
+    
+    # 根据感兴趣的功能推荐
+    features = profile.get('features', [])
+    if 'ai_interpret' in features:
+        recs.append('🤖 点击「AI 解读」体验岩画智能分析')
+    if 'style_transfer' in features:
+        recs.append('🎨 点击「风格迁移」将照片转为岩画风格')
+    if 'quiz' in features:
+        recs.append('📝 点击「知识测试」挑战 100 道岩画知识题')
+    
+    # 默认推荐
+    if len(recs) <= 2:
+        recs.append('🏔️ 欢迎探索「岩画图谱」浏览全部藏品')
+        recs.append('📅 每日一画更新，欢迎每天来访')
+    
+    return recs
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5002)
