@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>岩画之灵 - AI驱动的贺兰山岩画数字活化平台</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">🏔️</span>
+            <span class="logo-text">岩画之灵</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="active">首页</a>
+            <a href="/gallery">岩画图谱</a>
+            <a href="/ai">AI解读</a>
+            <a href="/quiz">知识测试</a>
+            <a href="/style">风格迁移</a>
+        </div>
+    </nav>
+
+    <!-- 每日一画 -->
+    <section class="daily-section">
+        <div class="section-header">
+            <h2>📜 每日一画</h2>
+            <span class="date">{{ datetime.now().strftime('%Y年%m月%d日') }}</span>
+        </div>
+        <div class="daily-card">
+            <div class="daily-image">
+                <img src="{{ daily.image }}" alt="{{ daily.name }}" 
+                     onerror="this.src='https://via.placeholder.com/400x300?text=贺兰山岩画'">
+            </div>
+            <div class="daily-info">
+                <h3>{{ daily.name }}</h3>
+                <div class="daily-meta">
+                    <span class="tag era">{{ daily.era }}</span>
+                    <span class="tag location">📍 {{ daily.location }}</span>
+                    <span class="tag type">{{ daily.type }}</span>
+                </div>
+                <p class="daily-desc">{{ daily.interpretation[:200] }}...</p>
+                <div class="daily-actions">
+                    <a href="/detail/{{ daily.id }}" class="btn btn-primary">查看详情</a>
+                    <a href="/ai?image={{ daily.image }}" class="btn btn-secondary">AI 解读</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 统计数据 -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number" id="total-rockarts">{{ total }}</div>
+                <div class="stat-label">岩画藏品</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ all_types|length }}</div>
+                <div class="stat-label">图案类型</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">{{ all_locations|length }}</div>
+                <div class="stat-label">出土地点</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10000+</div>
+                <div class="stat-label">历史跨度(年)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 推荐岩画 -->
+    <section class="recommend-section">
+        <div class="section-header">
+            <h2>🌟 精选岩画</h2>
+            <a href="/gallery" class="view-more">查看全部 →</a>
+        </div>
+        <div class="recommend-grid">
+            {% for r in recommended %}
+            <div class="rockart-card" onclick="location.href='/detail/{{ r.id }}'">
+                <div class="card-image">
+                    <img src="{{ r.image }}" alt="{{ r.name }}"
+                         onerror="this.src='https://via.placeholder.com/300x200?text=贺兰山岩画'">
+                </div>
+                <div class="card-info">
+                    <h4>{{ r.name }}</h4>
+                    <p class="card-type">{{ r.type }}</p>
+                    <p class="card-location">📍 {{ r.location[:20] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- AI 功能入口 -->
+    <section class="ai-feature-section">
+        <div class="section-header">
+            <h2>🤖 AI 活化实验室</h2>
+            <p>让 AI 成为你的岩画考古学家</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card" onclick="location.href='/ai'">
+                <div class="feature-icon">🔍</div>
+                <h3>岩画解读</h3>
+                <p>上传岩画图片，AI 分析图案含义、推测年代、讲述背后的故事</p>
+            </div>
+            <div class="feature-card" onclick="location.href='/style'">
+                <div class="feature-icon">🎨</div>
+                <h3>风格迁移</h3>
+                <p>上传任意照片，AI 转换成贺兰山岩画风格，生成个性化壁纸</p>
+            </div>
+            <div class="feature-card" onclick="location.href='/ai'">
+                <div class="feature-icon">💬</div>
+                <h3>岩画问答</h3>
+                <p>和"岩画精灵"对话，问任何关于贺兰山岩画的问题</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+            <p>第十一届华为ICT大赛创新赛作品</p>
+            <p>基于华为云 CodeArts + MaaS 大模型构建</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风格迁移 - 岩画之灵</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="logo-icon">🏔️</span>
+                <span class="logo-text">岩画之灵</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/gallery">岩画图谱</a>
+            <a href="/ai">AI解读</a>
+            <a href="/quiz">知识测试</a>
+            <a href="/style" class="active">风格迁移</a>
+        </div>
+    </nav>
+
+    <section class="style-section">
+        <div class="style-header">
+            <h1>🎨 AI 风格迁移</h1>
+            <p>上传任意照片，AI 将其转换为贺兰山岩画风格，生成个性化壁纸</p>
+        </div>
+
+        <div class="style-container">
+            <!-- 上传区域 -->
+            <div class="style-upload">
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-placeholder" id="upload-placeholder">
+                        <span class="upload-icon">📷</span>
+                        <p>点击上传或拖拽图片到此处</p>
+                        <p class="upload-hint">支持 JPG、PNG 格式，建议上传人物或风景照片</p>
+                    </div>
+                    <img id="preview-image" class="preview-image" style="display:none;">
+                    <input type="file" id="file-input" accept="image/*" style="display:none;">
+                </div>
+                
+                <button class="btn btn-primary" id="transfer-btn" disabled>
+                    ✨ 转换为岩画风格
+                </button>
+            </div>
+
+            <!-- 结果区域 -->
+            <div class="style-result" id="style-result" style="display:none;">
+                <h3>🎯 转换结果</h3>
+                <div class="result-images">
+                    <div class="original-image">
+                        <h4>原图</h4>
+                        <img id="original-img" class="result-img">
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="styled-image">
+                        <h4>岩画风格</h4>
+                        <img id="styled-img" class="result-img">
+                    </div>
+                </div>
+                
+                <div class="result-actions">
+                    <a id="download-link" class="btn btn-primary" download="rockart-style.png">
+                        💾 下载壁纸
+                    </a>
+                    <button class="btn btn-secondary" onclick="location.reload()">
+                        🔄 重新上传
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 示例图片 -->
+        <div class="examples-section">
+            <h3>📌 示例效果</h3>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=200" alt="原图1">
+                    <p>人物照片</p>
+                </div>
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200" alt="原图2">
+                    <p>风景照片</p>
+                </div>
+                <div class="example-card">
+                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=200" alt="原图3">
+                    <p>动物照片</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/style-script.js"></script>
+</body>
+</html>

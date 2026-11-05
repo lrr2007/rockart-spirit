@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识测试 - 岩画之灵</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="logo-icon">🏔️</span>
+                <span class="logo-text">岩画之灵</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/gallery">岩画图谱</a>
+            <a href="/ai">AI解读</a>
+            <a href="/quiz" class="active">知识测试</a>
+            <a href="/style">风格迁移</a>
+        </div>
+    </nav>
+
+    <section class="quiz-section">
+        <div class="quiz-header">
+            <h1>📝 贺兰山岩画知识测试</h1>
+            <p>测试你对贺兰山岩画的了解程度，共 {{ quizzes|length }} 题</p>
+        </div>
+
+        <form id="quiz-form">
+            {% for q in quizzes %}
+            <div class="quiz-question" data-id="{{ q.id }}">
+                <div class="question-number">第 {{ loop.index }} 题</div>
+                <h3>{{ q.question }}</h3>
+                
+                <div class="options">
+                    {% for opt in q.options %}
+                    {% if opt %}
+                    <label class="option-label">
+                        <input type="radio" name="q{{ q.id }}" value="{{ opt }}" class="option-radio">
+                        <span class="option-text">{{ opt }}</span>
+                    </label>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            
+            <button type="button" class="btn btn-primary btn-submit" id="submit-btn">
+                提交答案
+            </button>
+        </form>
+
+        <div class="quiz-result" id="quiz-result" style="display:none;">
+            <h2>📊 测试结果</h2>
+            <div class="score-display">
+                <div class="score-circle">
+                    <span id="score-text">0</span>
+                    <span class="score-total">/ {{ quizzes|length }}</span>
+                </div>
+                <div class="score-percentage" id="score-percentage">0%</div>
+                <div class="score-comment" id="score-comment"></div>
+            </div>
+            
+            <div class="result-details" id="result-details"></div>
+            
+            <button class="btn btn-secondary" onclick="location.reload()">
+                🔄 重新测试
+            </button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/quiz-script.js"></script>
+</body>
+</html>

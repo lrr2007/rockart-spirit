@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ rockart.name }} - 岩画之灵</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="logo-icon">🏔️</span>
+                <span class="logo-text">岩画之灵</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/gallery">岩画图谱</a>
+            <a href="/ai">AI解读</a>
+            <a href="/quiz">知识测试</a>
+            <a href="/style">风格迁移</a>
+        </div>
+    </nav>
+
+    <section class="detail-section">
+        <a href="/gallery" class="back-link">← 返回图谱</a>
+        
+        <div class="detail-container">
+            <div class="detail-image">
+                <img src="{{ rockart.image }}" alt="{{ rockart.name }}"
+                     onerror="this.src='https://via.placeholder.com/600x400?text=贺兰山岩画'">
+            </div>
+            
+            <div class="detail-info">
+                <h1>{{ rockart.name }}</h1>
+                
+                <div class="detail-meta">
+                    <span class="tag era">📅 {{ rockart.era }}</span>
+                    <span class="tag location">📍 {{ rockart.location }}</span>
+                    <span class="tag type">🏷️ {{ rockart.type }}</span>
+                </div>
+                
+                <div class="detail-block">
+                    <h3>📖 文化解读</h3>
+                    <p>{{ rockart.interpretation }}</p>
+                </div>
+                
+                <div class="detail-block">
+                    <h3>🎯 功能意义</h3>
+                    <p>{{ rockart.purpose }}</p>
+                </div>
+                
+                {% if rockart.reference %}
+                <div class="detail-block">
+                    <h3>🔗 相关链接</h3>
+                    <p>{{ rockart.reference }}</p>
+                </div>
+                {% endif %}
+                
+                <div class="detail-actions">
+                    <a href="/ai?image={{ rockart.image }}&name={{ rockart.name }}" class="btn btn-primary">
+                        🤖 AI 深度解读
+                    </a>
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        🖨️ 打印收藏
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 相关岩画 -->
+    {% if related %}
+    <section class="related-section">
+        <h2>🔗 相关岩画</h2>
+        <div class="related-grid">
+            {% for r in related %}
+            <div class="rockart-card" onclick="location.href='/detail/{{ r.id }}'">
+                <div class="card-image">
+                    <img src="{{ r.image }}" alt="{{ r.name }}"
+                         onerror="this.src='https://via.placeholder.com/300x200?text=贺兰山岩画'">
+                </div>
+                <div class="card-info">
+                    <h4>{{ r.name }}</h4>
+                    <p class="card-type">{{ r.type }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+        </div>
+    </footer>
+</body>
+</html>

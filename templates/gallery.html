@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>岩画图谱 - 岩画之灵</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="logo-icon">🏔️</span>
+                <span class="logo-text">岩画之灵</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/gallery" class="active">岩画图谱</a>
+            <a href="/ai">AI解读</a>
+            <a href="/quiz">知识测试</a>
+            <a href="/style">风格迁移</a>
+        </div>
+    </nav>
+
+    <!-- 搜索和筛选 -->
+    <section class="search-section">
+        <div class="search-container">
+            <form action="/gallery" method="get" class="search-form">
+                <input type="text" name="q" placeholder="搜索岩画名称、含义..." 
+                       value="{{ search_query }}" class="search-input">
+                <button type="submit" class="search-btn">🔍 搜索</button>
+            </form>
+        </div>
+        
+        <div class="filter-container">
+            <form action="/gallery" method="get" class="filter-form">
+                <select name="type" onchange="this.form.submit()" class="filter-select">
+                    <option value="">全部图案类型</option>
+                    {% for t in all_types %}
+                    <option value="{{ t }}" {% if filter_type == t %}selected{% endif %}>{{ t }}</option>
+                    {% endfor %}
+                </select>
+                
+                <select name="location" onchange="this.form.submit()" class="filter-select">
+                    <option value="">全部地点</option>
+                    {% for l in all_locations %}
+                    <option value="{{ l }}" {% if filter_location == l %}selected{% endif %}>{{ l[:15] }}</option>
+                    {% endfor %}
+                </select>
+                
+                <input type="text" name="era" placeholder="年代关键词" 
+                       value="{{ filter_era }}" class="filter-input">
+                
+                <button type="submit" class="filter-btn">筛选</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 结果统计 -->
+    <div class="results-info">
+        <p>共找到 <strong>{{ total }}</strong> 幅岩画</p>
+    </div>
+
+    <!-- 岩画列表 -->
+    <section class="gallery-section">
+        <div class="gallery-grid">
+            {% for r in rockarts %}
+            <div class="rockart-card" onclick="location.href='/detail/{{ r.id }}'">
+                <div class="card-image">
+                    <img src="{{ r.image }}" alt="{{ r.name }}"
+                         onerror="this.src='https://via.placeholder.com/300x200?text=贺兰山岩画'">
+                </div>
+                <div class="card-info">
+                    <h4>{{ r.name }}</h4>
+                    <p class="card-type">{{ r.type }}</p>
+                    <p class="card-location">📍 {{ r.location[:25] }}</p>
+                    <p class="card-era">{{ r.era[:30] }}</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <p>😔 没有找到符合条件的岩画</p>
+                <p>请尝试调整搜索条件</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- 分页 -->
+    {% if total_pages > 1 %}
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="/gallery?page={{ page-1 }}{% if search_query %}&q={{ search_query }}{% endif %}
+            {% if filter_type %}&type={{ filter_type }}{% endif %}
+            {% if filter_location %}&location={{ filter_location }}{% endif %}
+            {% if filter_era %}&era={{ filter_era }}{% endif %}">
+            ← 上一页
+        </a>
+        {% endif %}
+        
+        <span>第 {{ page }} / {{ total_pages }} 页</span>
+        
+        {% if page < total_pages %}
+        <a href="/gallery?page={{ page+1 }}{% if search_query %}&q={{ search_query }}{% endif %}
+            {% if filter_type %}&type={{ filter_type }}{% endif %}
+            {% if filter_location %}&location={{ filter_location }}{% endif %}
+            {% if filter_era %}&era={{ filter_era }}{% endif %}">
+            下一页 →
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+        </div>
+    </footer>
+</body>
+</html>

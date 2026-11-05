@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 解读 - 岩画之灵</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="/" style="text-decoration: none; color: inherit;">
+                <span class="logo-icon">🏔️</span>
+                <span class="logo-text">岩画之灵</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="/">首页</a>
+            <a href="/gallery">岩画图谱</a>
+            <a href="/ai" class="active">AI解读</a>
+            <a href="/quiz">知识测试</a>
+            <a href="/style">风格迁移</a>
+        </div>
+    </nav>
+
+    <section class="ai-section">
+        <div class="ai-header">
+            <h1>🤖 AI 活化实验室</h1>
+            <p>让 AI 成为你的岩画考古学家，解读千年石刻的秘密</p>
+        </div>
+
+        <!-- 三个 AI 功能 -->
+        <div class="ai-features">
+            <!-- 功能1: 岩画解读 -->
+            <div class="ai-feature-card" id="interpret-card">
+                <h3>🔍 岩画解读</h3>
+                <p>上传岩画图片，AI 分析图案含义、推测年代、讲述背后的故事</p>
+                
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-placeholder" id="upload-placeholder">
+                        <span class="upload-icon">📷</span>
+                        <p>点击上传或拖拽图片到此处</p>
+                        <p class="upload-hint">支持 JPG、PNG 格式</p>
+                    </div>
+                    <img id="preview-image" class="preview-image" style="display:none;">
+                    <input type="file" id="file-input" accept="image/*" style="display:none;">
+                </div>
+                
+                <button class="btn btn-primary" id="analyze-btn" disabled>
+                    开始 AI 解读
+                </button>
+                
+                <div class="ai-result" id="ai-result" style="display:none;">
+                    <h4>📋 解读结果</h4>
+                    <div class="result-content" id="result-content"></div>
+                </div>
+            </div>
+
+            <!-- 功能2: 岩画问答 -->
+            <div class="ai-feature-card" id="chat-card">
+                <h3>💬 岩画问答</h3>
+                <p>和"岩画精灵"对话，问任何关于贺兰山岩画的问题</p>
+                
+                <div class="chat-container" id="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot">
+                            <div class="message-avatar">🏔️</div>
+                            <div class="message-content">
+                                你好！我是岩画精灵，关于贺兰山岩画的任何问题都可以问我哦！
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="输入你的问题..." class="chat-input">
+                        <button class="btn btn-primary" id="send-btn">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>🏔️ 岩画之灵 - AI驱动的贺兰山岩画数字活化平台</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/ai-script.js"></script>
+</body>
+</html>
