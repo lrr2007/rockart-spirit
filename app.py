@@ -324,5 +324,52 @@ def generate_recommendations(profile):
     
     return recs
 
+
+# 查看调查结果（管理员页面）
+@app.route('/admin/surveys')
+def admin_surveys():
+    import os
+    import json
+    
+    survey_file = 'survey_results.json'
+    results = []
+    
+    if os.path.exists(survey_file):
+        with open(survey_file, 'r', encoding='utf-8') as f:
+            results = json.load(f)
+    
+    # 统计
+    total = len(results)
+    age_stats = {}
+    occupation_stats = {}
+    knowledge_stats = {}
+    suggestions = []
+    
+    for r in results:
+        # 年龄统计
+        age = r.get('age', '未知')
+        age_stats[age] = age_stats.get(age, 0) + 1
+        
+        # 职业统计
+        occ = r.get('occupation', '未知')
+        occupation_stats[occ] = occupation_stats.get(occ, 0) + 1
+        
+        # 知识水平统计
+        k = r.get('knowledge', '未知')
+        knowledge_stats[k] = knowledge_stats.get(k, 0) + 1
+        
+        # 收集建议
+        sug = r.get('suggestion', '').strip()
+        if sug:
+            suggestions.append(sug)
+    
+    return render_template('admin_surveys.html',
+                          results=results,
+                          total=total,
+                          age_stats=age_stats,
+                          occupation_stats=occupation_stats,
+                          knowledge_stats=knowledge_stats,
+                          suggestions=suggestions)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002)
